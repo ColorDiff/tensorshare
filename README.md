@@ -8,14 +8,6 @@ Lastly, a wrapper around tensorshare for Distributed Deep Reinforcment Learning 
 `tensorshare` was written with DDRL in mind, but it can also be used to parallelize expensive computations during training sample creation.
 E.g. searching for suitable triplets in large datasets when training triplet networks may be distributed onto multiple machines with `tensorshare`.
 
-# TODOs
-1. finish documentation
-2. publish on github
-3. publish on pypy https://packaging.python.org/en/latest/tutorials/packaging-projects/
-4. publish docs on readthedocs
-5. update alphazero to use tensorshare, remove any bugs
-6. write an article about tensorshare in towardsdatascience
-
 
 # Installation
 Install tensorshare via pip: 
