@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Examples &#8212; tensorshare 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tensorshare package" href="tensorshare.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<section id="tensorshare">
+<h2><a class="reference internal" href="tensorshare.html#tensorshare.ts.TensorShare" title="tensorshare.ts.TensorShare"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorshare</span></code></a><a class="headerlink" href="#tensorshare" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Start the tensorshare server on a free port of your choice.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">run_server</span>
+
+<span class="n">run_server</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Connect your clients</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">TensorShare</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+
+<span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;data_bin&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># Not blocking</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">peek</span><span class="p">(</span><span class="s1">&#39;data_bin&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;peek data_bin&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>  <span class="c1"># Get data in the bin and it</span>
+
+    <span class="c1"># Alternatively specify a callback</span>
+    <span class="k">def</span> <span class="nf">cb_get_data</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;get xyz&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>  <span class="c1"># This is called as soon as the server responds</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">callback</span><span class="o">=</span><span class="n">cb_get_data</span><span class="p">)</span>
+
+    <span class="c1"># Listening to data bins</span>
+    <span class="k">def</span> <span class="nf">cb_bin_updated</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;bin&#39;</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bin&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;bin&#39;</span><span class="p">],</span> <span class="s1">&#39;updated. Num items: &#39;</span><span class="p">,</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;n_items&#39;</span><span class="p">])</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">cb_bin_updated</span><span class="p">)</span>    <span class="c1"># Listen to changes in bin xyz, calling cb_bin_updated whenever it happens</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>    <span class="c1"># Appending will not overwrite data in the bin, but append to it, creating a list</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;get xyz&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>   <span class="c1"># Get removes data in the bin, which will also emit a notification.</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">cb_print_and_exit</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cb_print_and_exit</span><span class="p">)</span>  <span class="c1"># List the number of items in all bins</span>
+
+
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">TensorShare</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+<span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">do_something</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">tmp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># This is blocking and must be started in the main thread.</span>
+</pre></div>
+</div>
+<p>Since <cite>tensorshare</cite> relies on <cite>twisted</cite> for communcations, the main-thread will always be occupied by <cite>twisted</cite>’s reactor.
+Hence, all code using <cite>tensorshare</cite> must be run in separate threads.</p>
+<p>For DDRL, you may want to use the <cite>RLTrainer</cite> and <cite>RLWorker</cite> classes.
+These support exchange of network parameters and aggregation of self-play or rollout data and filtering by parameter version (to avoid off-policy samples).</p>
+</section>
+<section id="rltrainer">
+<span id="rl-trainer-example"></span><h2><a class="reference internal" href="tensorshare.html#tensorshare.ts.RLTrainer" title="tensorshare.ts.RLTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLTrainer</span></code></a><a class="headerlink" href="#rltrainer" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">RLTrainer</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">net</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i_iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">ts</span><span class="o">.</span><span class="n">publish_parameters</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+
+            <span class="c1"># Aggregate a batch</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+            <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">batch_size</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">data_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">item</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">batch_size</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mf">.5</span><span class="p">)</span>
+
+            <span class="c1"># Train on the batch</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">data_buffer</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">,</span> <span class="n">i_iter</span><span class="p">,</span> <span class="s1">&#39;Loss:&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">weight</span> <span class="o">-=</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">net</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span> <span class="o">*=</span> <span class="mi">0</span>
+
+            <span class="c1"># Publish new parameters</span>
+            <span class="n">ts</span><span class="o">.</span><span class="n">publish_parameters</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+<span class="c1"># Also host the server. In a real application it&#39;s better to have a dedicated process host the server.</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">RLTrainer</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="n">host_server</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filter_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">train</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">tmp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this example, the Trainer does not filter data by parameter version, which means that some samples will be off-policy.
+If you want to filter by parameter version, set <cite>filter_version=True</cite>.</p>
+</section>
+<section id="rlworker">
+<h2><a class="reference internal" href="tensorshare.html#tensorshare.ts.RLWorker" title="tensorshare.ts.RLWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLWorker</span></code></a><a class="headerlink" href="#rlworker" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">RLWorker</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="k">def</span> <span class="nf">generate_rollouts</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">net</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Load latest published parameters</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># In case no parameters were available on the server</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">await_new_parameters</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>   <span class="c1"># We wait until they are available</span>
+        <span class="n">net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">):</span>
+            <span class="c1"># Generate a rollout</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">ts</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mf">.2</span><span class="p">)</span>
+            <span class="c1"># Load newest parameters</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>    <span class="c1"># This returns the latest published parameters</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">RLWorker</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+<span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">generate_rollouts</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">tmp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">tensorshare</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tensorshare"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorshare</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rltrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLTrainer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rlworker"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLWorker</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tensorshare.html">tensorshare package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="tensorshare.html" title="next chapter">tensorshare package</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Luca Reeb.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/examples.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

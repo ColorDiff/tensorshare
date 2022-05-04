@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>tensorshare package &#8212; tensorshare 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tensorshare-package">
+<h1>tensorshare package<a class="headerlink" href="#tensorshare-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-tensorshare.ftp">
+<span id="tensorshare-module"></span><h2>tensorshare module<a class="headerlink" href="#module-tensorshare.ftp" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tensorshare.ftp.run_server">
+<span class="sig-prename descclassname"><span class="pre">tensorshare.ftp.</span></span><span class="sig-name descname"><span class="pre">run_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_reactor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ftp.html#run_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ftp.run_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the tensorshare server, listening to requests coming in on the specified port.</p>
+<p>If <code class="code docutils literal notranslate"><span class="pre">start_reactor</span> <span class="pre">=</span> <span class="pre">True</span></code>, this function is blocking.
+Must be called from the main thread in either case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – the port on which to listen</p></li>
+<li><p><strong>start_reactor</strong> (<em>bool</em>) – If true, starts the reactor, which means that this function is blocking. Set it to false if you want to run a client in the same process, e.g. for testing purposes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-tensorshare.ts"></span><dl class="py class">
+<dt class="sig sig-object py" id="tensorshare.ts.RLTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorshare.ts.</span></span><span class="sig-name descname"><span class="pre">RLTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLTrainer.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_versions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tensorshare/ts.html#RLTrainer.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLTrainer.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLTrainer.publish_parameters">
+<span class="sig-name descname"><span class="pre">publish_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/tensorshare/ts.html#RLTrainer.publish_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLTrainer.publish_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLTrainer.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLTrainer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLTrainer.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLTrainer.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLTrainer.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLTrainer.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorshare.ts.</span></span><span class="sig-name descname"><span class="pre">RLWorker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Creates a <a class="reference internal" href="#tensorshare.ts.RLWorker" title="tensorshare.ts.RLWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLWorker</span></code></a> instance that provides commonly used functionality in DDRL for rollout or self-play workers.</p>
+<p>The <a class="reference internal" href="#tensorshare.ts.RLWorker" title="tensorshare.ts.RLWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLWorker</span></code></a> supports two main functionalities:</p>
+<ol class="arabic simple">
+<li><p>retrieving latest network parameters (see <a class="reference internal" href="#tensorshare.ts.RLWorker.get_parameters" title="tensorshare.ts.RLWorker.get_parameters"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_parameters</span></code></a>, and <a class="reference internal" href="#tensorshare.ts.RLWorker.await_new_parameters" title="tensorshare.ts.RLWorker.await_new_parameters"><code class="xref py py-meth docutils literal notranslate"><span class="pre">await_new_parameters</span></code></a>)</p></li>
+<li><p>appending self-play or rollout data to the servers storage (see <a class="reference internal" href="#tensorshare.ts.RLWorker.add_data" title="tensorshare.ts.RLWorker.add_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_data</span></code></a>)</p></li>
+</ol>
+<p>A local copy of the current network parameters is kept and returned to any thread requesting them without delay via <a class="reference internal" href="#tensorshare.ts.RLWorker.get_parameters" title="tensorshare.ts.RLWorker.get_parameters"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_parameters</span></code></a>.
+Once a write update on these occurs, the <a class="reference internal" href="#tensorshare.ts.RLWorker" title="tensorshare.ts.RLWorker"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLWorker</span></code></a> will update the local copy immediately.
+Additionally, the parameter version is tracked and any data added to the server includes this version, allowing
+the <a class="reference internal" href="#tensorshare.ts.RLTrainer" title="tensorshare.ts.RLTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLTrainer</span></code></a> to filter for on-policy samples.</p>
+<p>Publishing of data is non-blocking for callers of <a class="reference internal" href="#tensorshare.ts.RLWorker.add_data" title="tensorshare.ts.RLWorker.add_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_data</span></code></a>.</p>
+<p>Lastly, waiting for parameter updates is supported <a class="reference internal" href="#tensorshare.ts.RLWorker.await_new_parameters" title="tensorshare.ts.RLWorker.await_new_parameters"><code class="xref py py-meth docutils literal notranslate"><span class="pre">await_new_parameters</span></code></a>.
+This may be useful if the <a class="reference internal" href="#tensorshare.ts.RLTrainer" title="tensorshare.ts.RLTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLTrainer</span></code></a> has not yet published any parameters yet or
+if the worker knows how many samples to produce util a new version is expected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – The host machine of the tensorshare server</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – The port on which the tensorshare server listens</p></li>
+<li><p><strong>host_server</strong> (<em>bool</em>) – Whether or not to host the server in this process. This is included for testing purposes and should not be used in real training scenarios. In real training scenarios, start the server using <code class="xref py py-func docutils literal notranslate"><span class="pre">start_server</span></code> in a seperate process.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker.add_data">
+<span class="sig-name descname"><span class="pre">add_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker.add_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker.add_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds data to the tensorshare server, from which the <a class="reference internal" href="#tensorshare.ts.RLTrainer" title="tensorshare.ts.RLTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RLTrainer</span></code></a> can retrieve it.</p>
+<p>The data is send to the server in a separate process and is non-blocking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>object</em>) – The data to add to the tensorshare server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker.await_new_parameters">
+<span class="sig-name descname"><span class="pre">await_new_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker.await_new_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker.await_new_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker.get_parameters">
+<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker.get_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker.get_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts connecting to the tensorshare server.</p>
+<p>This methods is blocking and must be called from the main thread.
+Make sure to have the server running before calling this method and to also call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">close</span></code> when exiting (e.g. using the try-finally pattern).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.RLWorker.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#RLWorker.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.RLWorker.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends the connection to the tensorshare server, freeing all resources in the process.</p>
+<p>This method should always be called after calling <a class="reference internal" href="#tensorshare.ts.RLWorker.start" title="tensorshare.ts.RLWorker.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start</span></code></a> to make sure
+the process can exit smoothly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorshare.ts.</span></span><span class="sig-name descname"><span class="pre">TensorShare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Creates a tensorshare instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – the host of the tensorshare server</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – the port of the tensorshare server</p></li>
+</ul>
+</dd>
+</dl>
+<p>The instance will try to connect to the server with the given ip and port.
+Requests are stored in a queue and processed asynchronously.
+Request results are delivered via callbacks provided with the requests.
+Requests will be worked off after starting the tensorshare instance by calling the <a class="reference internal" href="#tensorshare.ts.TensorShare.start" title="tensorshare.ts.TensorShare.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start</span></code></a> method.
+<a class="reference internal" href="#tensorshare.ts.TensorShare.start" title="tensorshare.ts.TensorShare.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">start</span></code></a> is blocking and must be called in the main thread like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">TensorShare</span><span class="p">,</span> <span class="n">run_server</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+
+<span class="k">def</span> <span class="nf">your_code_here</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+<span class="c1"># This starts the server in the same process.</span>
+<span class="c1"># Ideally this is run in a separate process.</span>
+<span class="n">run_server</span><span class="p">(</span><span class="mi">8000</span><span class="p">,</span> <span class="n">start_reactor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">TensorShare</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+<span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">your_code_here</span><span class="p">,</span> <span class="n">deamon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>All processed requests report the result to the callbacks provided with the requests.
+All callback will be called with a dictionary containing the key ‘status’, which is either ‘OK’ (see <a class="reference internal" href="#tensorshare.ts.TensorShare.STATUS_OK" title="tensorshare.ts.TensorShare.STATUS_OK"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATUS_OK</span></code></a>)
+if the request has been processed successfully, or ‘ERR’ (see <a class="reference internal" href="#tensorshare.ts.TensorShare.STATUS_ERR" title="tensorshare.ts.TensorShare.STATUS_ERR"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATUS_ERR</span></code></a>)
+if the request has failed for some reason.
+If the request failed, the reason is provided in the ‘msg’ field.
+If any data is returned by the request (e.g. <a class="reference internal" href="#tensorshare.ts.TensorShare.get" title="tensorshare.ts.TensorShare.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get</span></code></a>, <a class="reference internal" href="#tensorshare.ts.TensorShare.peek" title="tensorshare.ts.TensorShare.peek"><code class="xref py py-meth docutils literal notranslate"><span class="pre">peek</span></code></a>, <a class="reference internal" href="#tensorshare.ts.TensorShare.list" title="tensorshare.ts.TensorShare.list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">list</span></code></a> methods), it will be returned in the ‘data’ field.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorshare</span> <span class="kn">import</span> <span class="n">TensorShare</span><span class="p">,</span> <span class="n">run_server</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+
+
+<span class="k">def</span> <span class="nf">example</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="c1"># Define callbacks</span>
+    <span class="k">def</span> <span class="nf">cb_put</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;put response: Status =&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ts</span><span class="o">.</span><span class="n">STATUS_ERR</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got error:&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">])</span>
+        <span class="c1"># Call list after put is finished</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cb_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">cb_list</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;list response: Status =&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ts</span><span class="o">.</span><span class="n">STATUS_ERR</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got error:&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;list result:&#39;</span><span class="p">,</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="c1"># -&gt; {&#39;bin1&#39;: 1}</span>
+        <span class="c1"># Shut down tensorshare, also stops run_server</span>
+        <span class="n">ts</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+    <span class="c1"># Request to put data, calling cb_put with the result</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="n">cb_put</span><span class="p">)</span>
+
+<span class="n">run_server</span><span class="p">(</span><span class="mi">8000</span><span class="p">,</span> <span class="n">start_reactor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">TensorShare</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+<span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">example</span><span class="p">,</span> <span class="n">args</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><cite>tensorshare</cite> supports any data-type that can be processed by
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.load.html#torch.load">torch.load</a> and
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.save.html#torch.save">torch.save</a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.STATUS_ERR">
+<span class="sig-name descname"><span class="pre">STATUS_ERR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ERR'</span></em><a class="headerlink" href="#tensorshare.ts.TensorShare.STATUS_ERR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.STATUS_OK">
+<span class="sig-name descname"><span class="pre">STATUS_OK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OK'</span></em><a class="headerlink" href="#tensorshare.ts.TensorShare.STATUS_OK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append the given object to the objects in the specified bin.</p>
+<p>If the request is successful and the bin is empty, this method behaves identically to <a class="reference internal" href="#tensorshare.ts.TensorShare.put" title="tensorshare.ts.TensorShare.put"><code class="xref py py-meth docutils literal notranslate"><span class="pre">put</span></code></a>.
+If there is exactly one item in the bin, both objects are put in a list.
+Otherwise, the given object is appended to the pre-existing list.
+In any successful case, the callback is called with the following message <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK'}</span></code></p>
+<p>If any error occurs, the callback will instead be called with this message <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin to which the object will be appended</p></li>
+<li><p><strong>obj</strong> (<em>object</em>) – the object to append</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all data in the bin.</p>
+<p>If no data is in the bin or the bin does not exist, this is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – which bin to delete</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get and remove all data in the specified bin.</p>
+<p>If the bin does exist, all data in the bin is given to the callback as either a list of objects
+(if any appending happened in the bin), or as the object itself in the ‘data’ field <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK',</span> <span class="pre">'data':</span> <span class="pre">&lt;bin_content&gt;}</span></code>
+All data in the bin will be removed after the request has been processed by the server.</p>
+<p>If the bin is empty or any other error occurs, the request fails and call the callback <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin from which all objects are retrieved</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.ignore">
+<span class="sig-name descname"><span class="pre">ignore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.ignore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop receiving write notifications on the given bin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin from which all objects are retrieved</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.list">
+<span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all bins and the number of items within each.</p>
+<dl class="simple">
+<dt>If successful, the listing is given as a dictionary, to the callback in the ‘data’ field:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK',</span> <span class="pre">'data':</span> <span class="pre">{'&lt;bin_name&gt;':</span> <span class="pre">&lt;bin_length&gt;}}</span></code></p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>  <span class="c1"># Overwrites all contents of bin1</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="c1"># yields {&#39;bin1&#39;: 1}</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Appends data to the bin</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="c1"># yields {&#39;bin1&#39;: 2}</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">peek</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="c1"># yields {&#39;bin1&#39;: 2}</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bin1&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="c1"># yields {}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>If the request fails, the response will be formatted like:</dt><dd><p><code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.listen">
+<span class="sig-name descname"><span class="pre">listen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.listen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start receiving write updates on the specified bin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin from which all objects are retrieved</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Whenever a client modifies the specified bin, a message will be sent to the callback:
+<code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK',</span> <span class="pre">'bin':</span> <span class="pre">'&lt;bin_name&gt;',</span> <span class="pre">'n_items':</span> <span class="pre">len(&lt;bin_name&gt;)}</span></code>.</p>
+<p>If any error occurs during setup, the callback is called with status ‘ERR’:
+<code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code></p>
+<p>This method only works if the current machine is visible to the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.peek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get and keep all data in the specified bin.</p>
+<p>If the bin does exist, all data in the bin is given to the callback as either a list of objects
+(if any appending happened in the bin), or as the object itself in the ‘data’ field <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK',</span> <span class="pre">'data':</span> <span class="pre">&lt;bin_content&gt;}</span></code></p>
+<p>If the bin does not exist or is empty or any other error occured, the request fails, calling the callback with
+a message formatted like <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin from which all objects are retrieved</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put the given object in the specified bin.</p>
+<p>If the request is successful and any data in the bin exists, it will be overwritten.
+The callback will be called with following message: <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'OK'}</span></code>.</p>
+<p>If the request fails, the response will be formatted like <code class="code docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'ERR',</span> <span class="pre">'msg':</span> <span class="pre">'&lt;err_msg&gt;'}</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bin</strong> (<em>str</em>) – the bin to which the object will be appended</p></li>
+<li><p><strong>obj</strong> (<em>object</em>) – the object to append</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>None</em><em>]</em>) – A callback receiving the server’s response.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the client.</p>
+<p>This method is blocking and must be called from the <cite>main thread</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tensorshare.ts.TensorShare.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tensorshare/ts.html#TensorShare.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tensorshare.ts.TensorShare.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the client.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tensorshare">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tensorshare" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">tensorshare</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tensorshare package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tensorshare.ftp">tensorshare module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tensorshare">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="examples.html" title="previous chapter">Examples</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Luca Reeb.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/tensorshare.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
